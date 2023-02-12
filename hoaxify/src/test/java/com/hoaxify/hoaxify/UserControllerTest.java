@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import shared.GenericResponse;
 import user.User;
 import user.UserRepository;
 
@@ -51,6 +52,14 @@ public class UserControllerTest {
 		User user = createValidMethod();
 		testRestTemplate.postForEntity(API_1_0_USERS, user, Object.class);
 		assertThat(userRepository.count()).isEqualTo(1);
+	}
+	
+	
+	@Test
+	public void postUser_whenUserIsValid_recieveMessage() {
+		User user = createValidMethod();
+		ResponseEntity<GenericResponse> response = testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
+		assertThat(response.getBody().getMessage()).isNotNull();
 	}
 	
 	private User createValidMethod() {
