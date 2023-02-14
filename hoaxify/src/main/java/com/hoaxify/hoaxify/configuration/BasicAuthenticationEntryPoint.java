@@ -12,11 +12,18 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 public class BasicAuthenticationEntryPoint implements AuthenticationEntryPoint{
 
-	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException authException) throws IOException, ServletException {
+			AuthenticationException authException) throws IOException {
 
-		response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
+		((jakarta.servlet.http.HttpServletResponse) response).sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
+		
+	}
+
+	@Override
+	public void commence(jakarta.servlet.http.HttpServletRequest request,
+			jakarta.servlet.http.HttpServletResponse response, AuthenticationException authException)
+			throws IOException, jakarta.servlet.ServletException {
+		// TODO Auto-generated method stub
 		
 	}
 
